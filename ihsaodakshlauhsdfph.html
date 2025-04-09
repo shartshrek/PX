@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editable & Saveable Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
+    .editable {
+      border: 1px dashed #aaa;
+      padding: 10px;
+      background-color: #fff;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 contenteditable="true" class="editable" id="title">Editable Title</h1>
+  <p contenteditable="true" class="editable" id="paragraph">
+     Put the stuff from PX on here. It's more secure. You can change this and click "Save" to store your edits.
+  </p>
+
+  <button onclick="saveContent()">Save</button>
+  <button onclick="resetContent()">Reset</button>
+
+  <script>
+    // Load saved content if it exists
+    window.onload = function () {
+      const savedTitle = localStorage.getItem("savedTitle");
+      const savedParagraph = localStorage.getItem("savedParagraph");
+
+      if (savedTitle) document.getElementById("title").innerHTML = savedTitle;
+      if (savedParagraph) document.getElementById("paragraph").innerHTML = savedParagraph;
+    };
+
+    // Save to localStorage
+    function saveContent() {
+      const title = document.getElementById("title").innerHTML;
+      const paragraph = document.getElementById("paragraph").innerHTML;
+
+      localStorage.setItem("savedTitle", title);
+      localStorage.setItem("savedParagraph", paragraph);
+      alert("Content saved!");
+    }
+
+    // Optional: Reset content
+    function resetContent() {
+      localStorage.removeItem("savedTitle");
+      localStorage.removeItem("savedParagraph");
+      location.reload();
+    }
+  </script>
+
+</body>
+</html>
